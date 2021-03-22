@@ -1,12 +1,13 @@
 # Import modules to use
 from words import palabras
 
-import colorama #Importar toda la libreria porque yolo
+from colorama import Fore, Back, Style #Importar colorama
 import random
 
 # 1. Bienvenida
-print("Welcome to the game hangman in Python")
-print("Comenzaras con 6 vidas, mucha suerte!")
+print(Fore.GREEN + "Welcome to the game hangman in Python")
+print(Fore.RED + "Comenzaras con 6 vidas, mucha suerte!")
+print(Style.RESET_ALL)
 vidas = 6
 guiones = ""
 
@@ -26,11 +27,12 @@ my_word = get_valid_word(palabras)
 print(my_word + '\n',len(my_word))
 
 #Desplegar guines segun palabra
-largpalab = len(my_word)
+largpalab = len(my_word) #Guarda el numero de caracteres de la palabra
 print(largpalab)
 for i in range(largpalab):
     guiones = guiones + "_ "
-print(guiones)
+print(Fore.GREEN + guiones)
+print(Style.RESET_ALL)
 
 
 
