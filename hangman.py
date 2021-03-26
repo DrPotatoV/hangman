@@ -1,5 +1,5 @@
 # Import modules to use
-from words import palabras, vidasPics
+'''from words import palabras, vidasPics
 
 from colorama import Fore, Back, Style #Importar colorama
 import random
@@ -8,7 +8,7 @@ import random
 print(Fore.GREEN + "Bienvenido al juego del Ahorcado")
 print(Fore.RED + "Comenzaras con 6 vidas, mucha suerte!")
 print(Style.RESET_ALL)
-vidas = 6
+vidas = 0
 guiones = ""
 
 
@@ -34,49 +34,127 @@ for i in range(largpalab):
 print(Fore.GREEN + guiones)
 print(Style.RESET_ALL)
 
-def hangman(): #Mecanica del juego
+# Main function, init game
+def hangman():
 
-  word = get_valid_word(palabras) # obtener palabra
-  word_letters = set(word) # Separar palabra, ej: S, O , L
-  alphabet = set(string.ascii_uppercase) #Convertir a mayus A, B, C, D, E,...
-  letras_usadas = set()
-  vidas = 7
+  word = get_valid_word(palabras) # SOL
+  word_letters = set(word) # S, O , L
+  alphabet = set(string.ascii_uppercase) # A, B, C, D, E,...
+  used_letters = set()
+  lives = 6
 
-while len(word_letters) > 0 and vidas > 0:
-    print(f"Te quedan {vidas} vidas restantes y ya has usado estas letras: ",' '.join(letras_usadas))
+  print("La palabra es: ",word)
+
+  while len(word_letters) > 0 and lives > 0:
+    print(f"You have {lives} lives left and you have used these letters: ",' '.join(used_letters))
 
     # what letter you guess, example WORD (- - R D)
-    word_list = [letter if letter in letras_usadas else '-' for letter in word]
+    word_list = [letter if letter in used_letters else '-' for letter in word]
 
     print("Current word: ", ' '.join(word_list),"\n")
 
     user_letter = input('Guess a letter:').upper() # S
 
-    if user_letter in alphabet - letras_usadas: # si "S" esta en "A,B,C,D" - ""
-      letras_usadas.add(user_letter) # S
-      # print(letras_usadas,'\n',word_letters)
+    if user_letter in alphabet - used_letters: # si "S" esta en "A,B,C,D" - ""
+      used_letters.add(user_letter) # S
+      # print(used_letters,'\n',word_letters)
 
       if user_letter in word_letters: # S es parte de tu palabra
         word_letters.remove(user_letter) # S, O , L le quito la S = O, L
       else:
-        vidas = vidas - 1
-        print("Esta letra no está en la palabra")
+        lives = lives - 1
+        print('Letter is not in word')
 
-    elif user_letter in letras_usadas:
-      print("Ya usaste esta palabra, intenta con otra.")
+    elif user_letter in used_letters:
+      print("You have already used that character. Please try again.")
     else:
-      print("Caracter invalido. Usa puras letras.")
+      print("Invalid character. Please try again.")
 
-  if vidas == 0
-    print("Has perdido, la palabra era: ", word)
+  if lives == 0:
+    print("You died, The word was: ", word)
   else:
-    print("Atinaste: ", word,"!!! =)")
+    print("You guessed the word: ", word,"!!! =)")
+hangman()'''
+#-----------------------------------------------------------------------------------------------------------
+from words import palabras,vidasPics
+from colorama import Fore, Back, Style #Importar colorama
+import string
+import random
+guiones = ""
+
+# 1. Bienvenida
+print(Fore.GREEN + "Bienvenido al juego del Ahorcado")
+print(Fore.RED + "Comenzaras con 6 vidas, mucha suerte!")
+print(Style.RESET_ALL)
+
+# 2. Funcion para obtener palabra
+def get_valid_word(palabras):
+  word = random.choice(palabras)
+
+  # Escogiendo una buena palabra
+  while '-' in word or ' ' in word: # While - or ' '
+    word = random.choice(palabras)
+
+  return word.upper()
+
+'''# Imprimir palabra y largo de palabra
+my_word = get_valid_word(palabras)
+print(my_word + '\n',len(my_word))
+
+#Desplegar guines segun palabra---------------------------------------------------------------------
+largpalab = len(my_word) #Guarda el numero de caracteres de la palabra
+print(largpalab)
+for i in range(largpalab):
+    guiones = guiones + "_ "
+print(Fore.GREEN + guiones)
+print(Style.RESET_ALL)'''
+
+# Main function, init game
+def hangman():
+
+  word = get_valid_word(palabras) # SOL
+  word_letters = set(word) # S, O , L
+  alphabet = set(string.ascii_uppercase) # A, B, C, D, E,...
+  used_letters = set()
+  lives = 6
+  print(vidasPics[lives])
+
+  print("La palabra es: ",word)
+
+  while len(word_letters) > 0 and lives > 0:
+    print(f"Te quedan {lives} Vidas y has usado estas letras: ",' '.join(used_letters))
+    print(vidasPics[lives])
+
+    # what letter you guess, example WORD (- - R D)
+    word_list = [letter if letter in used_letters else '-' for letter in word]
+
+    print("Current word: ", ' '.join(word_list),"\n")
+
+    user_letter = input('Guess a letter:').upper() # S
+
+    if user_letter in alphabet - used_letters: # si "S" esta en "A,B,C,D" - ""
+      used_letters.add(user_letter) # S
+      # print(used_letters,'\n',word_letters)
+
+      if user_letter in word_letters: # S es parte de tu palabra
+        word_letters.remove(user_letter) # S, O , L le quito la S = O, L
+      else:
+        lives = lives - 1
+        print('Letter is not in word')
+
+    elif user_letter in used_letters:
+      print("You have already used that character. Please try again.")
+    else:
+      print("Invalid character. Please try again.")
+
+  if lives == 0:
+    print("You died, The word was: ", word)
+  else:
+    print("You guessed the word: ", word,"!!! =)")
 
 
 hangman()
-
-
-
+#-----------------------------------------------------------------------------------------------------------
 #Juega------------------------------------------------------------------------------------------------------
 #vidasrest = vidas
 #do{
