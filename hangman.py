@@ -117,7 +117,6 @@ def hangman():
   alphabet = set(string.ascii_uppercase) # A, B, C, D, E,...
   used_letters = set()
   lives = 6
-  print(vidasPics[lives])
 
   print("La palabra es: ",word)
 
@@ -149,6 +148,7 @@ def hangman():
 
   if lives == 0:
     print("You died, The word was: ", word)
+    print(vidasPics[0])
   else:
     print("You guessed the word: ", word,"!!! =)")
 
